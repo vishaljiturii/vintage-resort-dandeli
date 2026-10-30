@@ -2,6 +2,21 @@
 //   VINTAGE RESORT DANDELI — Main JavaScript
 // ═══════════════════════════════════════════════════════════════
 
+const https = require('https');
+
+// Replace with your actual Render URL
+const RENDER_URL = 'https://your-app-name.onrender.com';
+
+// Ping every 14 minutes (840,000 milliseconds)
+setInterval(() => {
+  https.get(RENDER_URL, (res) => {
+    console.log(`Pinged server to keep awake. Status: ${res.statusCode}`);
+  }).on('error', (err) => {
+    console.error('Error pinging server:', err.message);
+  });
+}, 840000);
+
+
 (function () {
   'use strict';
 
