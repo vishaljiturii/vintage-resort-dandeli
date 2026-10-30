@@ -492,7 +492,7 @@
    <!-- Enquiry Form Section -->
 <div class="enquiry-section">
   <div class="enquiry-form-container">
-    <form action="#" method="POST" class="enquiry-form">
+    <form id="whatsappEnquiryForm" class="enquiry-form">
       
       <div class="form-group row">
         <label for="enquiry-for">Enquiry For</label>
@@ -811,6 +811,37 @@
   
 
   startAuto();
+
+  /* ── WhatsApp Form Submission ── */
+  const waForm = document.getElementById('whatsappEnquiryForm');
+  if (waForm) {
+    waForm.addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevents the page from refreshing or throwing an error
+
+      // 1. Get the values from the form fields
+      const enquiryFor = document.getElementById('enquiry-for').value || 'Not specified';
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value || 'Not provided';
+      const mobile = document.getElementById('mobile').value;
+      const adults = document.getElementById('adults').value || 'Not specified';
+
+      // 2. Format the message for WhatsApp (using %0A for line breaks and * for bold)
+      const message = `*New Resort Enquiry* 🌴%0A%0A` +
+                      `*Enquiry For:* ${enquiryFor}%0A` +
+                      `*Name:* ${name}%0A` +
+                      `*Mobile:* ${mobile}%0A` +
+                      `*Email:* ${email}%0A` +
+                      `*No. of Adults:* ${adults}`;
+
+      // 3. Open WhatsApp with your specific number and the pre-filled message
+      // Note: Do not use the '+' sign in the phone number here
+      const targetPhone = "916361185700"; 
+      const whatsappUrl = `https://wa.me/${targetPhone}?text=${message}`;
+
+      window.open(whatsappUrl, '_blank');
+    });
+  }
+  
 </script>
 </body>
 </html>
